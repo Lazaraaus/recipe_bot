@@ -13,6 +13,7 @@ intents:
   - display_next_step
   - query
   - transform
+  - get_url
 
   # - search_venues
   # - compare_reviews
@@ -36,6 +37,9 @@ slots:
   query:
   type: list
 
+  website_url:
+  type: text
+
   # concerts:
   #   type: list
   #   influence_conversation: false
@@ -53,6 +57,12 @@ slots:
   #   - type: custom
 
 responses:
+  utter_ask_display_all_steps:
+    - text: "Would you like to see all steps?"
+  utter_ask_ready_next_step:
+    - text: "Ready for the next step?"
+  utter_get_url:
+    - text: "What url should I pull your recipe from today?"
   utter_greet:
     - text: "Hey there!"
   utter_goodbye:
