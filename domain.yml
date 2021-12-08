@@ -29,7 +29,8 @@ entities:
 
 slots:
   step_number:
-  type: text
+  type: int
+  initial_value: 0
 
   transformation:
   type: text
@@ -39,6 +40,24 @@ slots:
 
   website_url:
   type: text
+
+  title:
+  type: text
+
+  ingredients:
+  type: text
+
+  instructions:
+  type: text
+
+  ingr_dict:
+  type: unfeaturized
+  initiaL-value: {}
+
+  instr_dict:
+  type: unfeaturized
+  initial_value: {}
+ 
 
   # concerts:
   #   type: list
