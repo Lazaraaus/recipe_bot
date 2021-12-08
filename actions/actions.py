@@ -28,6 +28,18 @@ class ActionHelloWorld(Action):
 
 
 # Some Class for geting recipes
+class ActionGetRecipe(Action):
+    # name func
+    def name(self) -> Text:
+        return "action_get_recipe"
+    # run func 
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+
+        # Extract url from slots 
+        website_url = str(tracker.get_slit('website_url'))
+        # Use recipe parser to get recipe
 
 # Some class for Displaying All Steps
 
