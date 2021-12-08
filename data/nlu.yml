@@ -1,4 +1,6 @@
 version: "3.0"
+
+# Need to find an example of using regex and NLU so we can parse the allrecipes url out
 nlu:
   - intent: greet
     examples: |
@@ -18,30 +20,102 @@ nlu:
       - thanks
       - thank you
       - thanks friend
-  - intent: search_concerts
+
+  - intent: display_ingredients
     examples: |
-      - Find me some good concerts
-      - Show me concerts
-      - search concerts
-  - intent: search_venues
+      - what are the ingredients
+      - display the ingredients 
+      - ingredients
+      - show me the ingredients
+      - what's in this
+      - what's this made out of
+      - list the ingredients
+
+  - intent: display_all_steps
     examples: |
-      - Find me some good venues
-      - Show me venues
-      - search venues
-  - intent: compare_reviews
+      - what are all the steps
+      - display all the steps
+      - steps
+      - show me the steps
+      - what are the steps
+      - show the instructions
+      - what are the instructions
+      - list the steps
+      - list the instructions
+  
+  - intent: display_previous_step
     examples: |
-      - compare reviews
-      - show me a comparison of the reviews
-  - intent: how_to_get_started
+      - what step came before this
+      - show me the previous step
+      - what came before
+      - show that again
+      - display the previous step
+      - repeat
+      - say again
+  
+  - intent: display_current_step
     examples: |
-      - how do I get started
-      - what can I do
-      - start
-  - intent: affirm
+      - what is the current step
+      - what is the current instruction
+      - what now
+      - display the current step
+      - what step am I on
+      - what should I do
+  
+  - intent: display_next_step
     examples: |
-      - yes
-      - yeah
-      - yep
+      - what is the next step
+      - what is the next instruction
+      - next
+      - what next
+      - show me what comes next
+      - display the next step
+      - what should I do next
+
+  # Need to find an example of this, I think I can just use numbers and the words
+  - intent: go_to_step
+    examples: |
+      - example 1
+
+  # Need to find example of general query so we can respond to how to questions; Ex., How do I preheat the oven
+- intent: query 
+   examples: |
+      - example 2
+
+- intent: transform
+   examples: |
+      - transform to italian
+      - make italian
+      - transform to healthy
+      - make healthy
+      - transform to vegetarian
+      - make vegetarian
+      - transform to non-vegetarian
+      - make non-vegetarian
+
+# regex for website extraction
+- regex: website_url
+  examples: |
+      - RegEx for allrecipes urls
+  
+- intent: get_url
+  examples: |
+      - [https://www.allrecipes.com/gallery/prime-rib-christmas-dinner-menu/](webiste_url)
+      - [https://www.allrecipes.com/recipe/15821/aunt-teens-creamy-chocolate-fudge/](website_url)
+      - [https://www.allrecipes.com/recipe/127167/spinach-pomegranate-salad/](website_url)
+
+- intent: how_to_get_started
+  examples: |
+    - how do I get started
+    - what can I do
+    - start
+
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - yep
+
   - intent: deny
     examples: |
       - nope

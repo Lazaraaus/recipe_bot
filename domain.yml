@@ -6,32 +6,51 @@ intents:
   - greet
   - thankyou
   - goodbye
-  - search_concerts
-  - search_venues
-  - compare_reviews
-  - bot_challenge
-  - nlu_fallback
+  - display_ingredients
+  - display_all_steps
+  - display_previous_step
+  - display_current_step
+  - display_next_step
+  - query
+  - transform
+
+  # - search_venues
+  # - compare_reviews
+  # - bot_challenge
+  # - nlu_fallback
   - how_to_get_started
 
 entities:
-  - name
+  - step_number
+  - website_url
+  - transformation
+  - query
 
 slots:
-  concerts:
-    type: list
-    influence_conversation: false
-    mappings:
-    - type: custom
-  venues:
-    type: list
-    influence_conversation: false
-    mappings:
-    - type: custom
-  likes_music:
-    type: bool
-    influence_conversation: true
-    mappings:
-    - type: custom
+  step_number:
+  type: text
+
+  transformation:
+  type: text
+
+  query:
+  type: list
+
+  # concerts:
+  #   type: list
+  #   influence_conversation: false
+  #   mappings:
+  #   - type: custom
+  # venues:
+  #   type: list
+  #   influence_conversation: false
+  #   mappings:
+  #   - type: custom
+  # likes_music:
+  #   type: bool
+  #   influence_conversation: true
+  #   mappings:
+  #   - type: custom
 
 responses:
   utter_greet:
@@ -50,9 +69,14 @@ responses:
     - text: "Awesome! You can ask me things like \"Find me some concerts\" or \"What's a good venue\""
 
 actions:
-  - action_show_concert_reviews
-  - action_show_venue_reviews
-  - action_set_music_preference
+  - action_get_recipe
+  - action_mutate_recipe
+  - action_display_ingredients
+  - action_display_all_steps
+  - action_display_previous_step
+  - action_display_current_step
+  - action_display_next_step
+  - action_answer_query
 
 session_config:
   session_expiration_time: 60  # value in minutes
