@@ -71,6 +71,13 @@ nlu:
       - show me what comes next
       - display the next step
       - what should I do next
+  
+  - intent: display_params
+    examples: |
+      - how much of
+      - what temperature
+      - how long do i
+      - when is it done
 
   # Need to find an example of this, I think I can just use numbers and the words
   - intent: go_to_step
@@ -78,6 +85,7 @@ nlu:
       - example 1
 
   # Need to find example of general query so we can respond to how to questions; Ex., How do I preheat the oven
+  # Aaron - notes how much do we intend to cover by query? (Deliverables 3-4-5-7)?
 - intent: query 
    examples: |
       - example 2
