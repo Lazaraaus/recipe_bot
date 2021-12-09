@@ -100,6 +100,14 @@ def main():
         print(json.dumps(ingr_dict, indent=4))
         print()
         print(json.dumps(instr_dict, indent=4))
+    elif out[-4:] == "json":
+        json_output = {
+            "Title": title,
+            "Ingredients": ingr_dict,
+            "Instructions": instr_dict
+        }
+        with open(out, "w") as f:
+            json.dump(json_output, f)
     else:
         write_out(title, ingr_dict, instr_dict, transformation, out)
 

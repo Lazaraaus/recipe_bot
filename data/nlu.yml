@@ -96,7 +96,10 @@ nlu:
 # regex for website extraction
 - regex: website_url
   examples: |
-      - RegEx for allrecipes urls
+      - "(?:http://|https://)?(?:www\.)?(?:allrecipes\.com/recipe/)\d{5, 6}(?:/\w+(?:-\w+)*|/)?/?"gmi
+
+# If the regex doesn't work, try the r prefix, as shown below:
+# r"(?:http://|https://)?(?:www\.)?(?:allrecipes\.com/recipe/)\d{5, 6}(?:/\w+(?:-\w+)*|/)?/?"gmi
   
 - intent: get_url
   examples: |

@@ -79,7 +79,7 @@ CONVERSIONS = {
 }
 
 # Output and Transform
-def write_out(title: str, ingr_dict: dict, instr_dict: dict, transformation: str, file: str):
+def write_out(title: str, ingr_dict: dict, instr_dict: dict, transformation: str, file_: str):
     old_to_new = {}
     lines = [title, "", "", "Ingredients", ""]
     ingr_transform_dict = {}
@@ -268,5 +268,5 @@ def write_out(title: str, ingr_dict: dict, instr_dict: dict, transformation: str
         lines.append(" ".join(instr_phrase))
 
 
-    with open(file, "w") as f:
+    with open(file_, "w") as f:
         f.writelines("\n".join(lines))

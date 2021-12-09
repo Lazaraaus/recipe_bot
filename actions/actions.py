@@ -73,6 +73,7 @@ class ActionGetRecipe(Action):
             # Set Slots
             SlotSet("ingr_dict", ingr_dict)
             SlotSet("instr_dict", instr_dict)
+            SlotSet("step_number", 1)
 
             # Utter Success Message
             msg = title + " retrieved and parsed.\n" + "What would you like to do next?"
@@ -86,7 +87,109 @@ class ActionGetRecipe(Action):
 
 
 # Some class for Displaying All Steps
+class ActionDisplayAllSteps(Action):
+
+    def name(self) -> Text:
+        return "display_all_steps"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        
+        instructions = tracker.get_slot("instructions")
+
+        # ARE WE DOING TRNASFORMATIONS? IF NOT THIS SEEMS SO TRIVIAL ALMOST
+
+        msg = ""
+        for i, instr in enumerate(instructions):
+            msg += "Step {}: {}\n".format(i + 1, instr)
+        dispatcher.utter_message(text=msg)
+        return []
 
 # Some class for Display Next Step
+class ActionDisplayIngredients(Action):
 
+    def name(self) -> Text:
+        return "display_ingredients"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        
+        ingredients = tracker.get_slot("ingredients")
+
+        msg = ""
+        for ingr in ingredeints:
+            msg += "- {}\n".format(ingr)
+        dispatcher.utter_message(text=msg)
+        return []
+
+class ActionDisplayCurrentStep(Action):
+
+    def name(self) -> Text:
+        return "display_current_step"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        
+        step = tracker.get_slot("step_number")
+        instructions = tracker.get_slot("instructions")
+
+        msg = "Step {}: {}\n".format(step, instr[step - 1])
+        dispatcher.utter_message(text=msg)
+        return []
+
+# MACEY NOTE: These should have some way to tell a person when they're at the beginning/end of the list
+
+class ActionDisplayNextStep(Action):
+
+    def name(self) -> Text:
+        return "display_next_step"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        
+        step = tracker.get_slot("step_number")
+        instructions = tracker.get_slot("instructions")
+
+        try:
+            msg = "Step {}: {}\n".format(step, instr[step])
+            dispatcher.utter_message(text=msg)
+            if step < len(instructions):
+                SlotSet("step_number", step + 1)
+            return []
+        except:
+            pass
+
+class ActionDisplayPreviousStep(Action):
+
+    def name(self) -> Text:
+        return "display_current_step"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        
+        step = tracker.get_slot("step_number")
+        instructions = tracker.get_slot("instructions")
+
+        try:
+            msg = "Step {}: {}\n".format(step, instr[step - 2])
+            dispatcher.utter_message(text=msg)
+            if step > 1:
+                SlotSet("step_number", step - 1)
+            return []
+        except:
+            pass
+        
 # Etc, Etc 
+
+"""
+    title = tracker.get_slot("title")
+    ingredients = tracker.get_slot("ingredients")
+    instructions = tracker.get_slot("instructions")
+    ingr_dict = tracker.get_slot("ingr_dict")
+    instr_dict = tracker.get_slot("instr_dict")
+"""
