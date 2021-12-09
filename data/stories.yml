@@ -14,6 +14,11 @@ stories:
     - action: utter_ask_display_all_Steps:
     - action: action_display_all_steps
 
+  - story: Show current step
+    steps:
+    - intent: display_current_step
+    - action: display_current_step 
+
 
   # - story: search_venues
   #   steps:
