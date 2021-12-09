@@ -10,11 +10,13 @@ nlu:
       - good morning
       - good evening
       - hey
+
   - intent: goodbye
     examples: |
       - bye
       - goodbye
       - ciao
+
   - intent: thankyou
     examples: |
       - thanks
@@ -70,7 +72,7 @@ nlu:
       - what next
       - show me what comes next
       - display the next step
-      - what should I do next
+      - what should i do next
 
   # Need to find an example of this, I think I can just use numbers and the words
   - intent: go_to_step
@@ -78,9 +80,25 @@ nlu:
       - example 1
 
   # Need to find example of general query so we can respond to how to questions; Ex., How do I preheat the oven
-- intent: query 
+- intent: what_query
    examples: |
-      - example 2
+      - what is that
+      - what is this
+      - i do not know what that is
+      - i do not know what this is
+      - what is gorgonzola
+      - what is cheese
+      - what are linguini noodles
+      - what is an egg timer
+
+- intent: how_query
+   examples: |
+      - how do i do that
+      - i do not know how to do that
+      - how do i preheat the oven
+      - how to mince
+      - how to chop
+      - how to preheat an oven
 
 - intent: transform
    examples: |

@@ -11,13 +11,10 @@ intents:
   - display_previous_step
   - display_current_step
   - display_next_step
-  - query
   - transform
   - get_url
-
-  # - search_venues
-  # - compare_reviews
-  # - bot_challenge
+  - how_query
+  - what_query
   # - nlu_fallback
   - how_to_get_started
 
@@ -25,7 +22,12 @@ entities:
   - step_number
   - website_url
   - transformation
-  - query
+  - how_query
+  - what_query
+  - cooking_action
+  - ingredient_amount
+  - cooking_action_time
+
 
 slots:
   step_number:
@@ -35,7 +37,10 @@ slots:
   transformation:
   type: text
 
-  query:
+  what_query:
+  type: list
+
+  how_query:
   type: list
 
   website_url:
