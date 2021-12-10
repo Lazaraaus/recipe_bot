@@ -50,6 +50,12 @@ stories:
   - intent: what_query
   - action: action_answer_what_is_query
 
+- story: Go To Step
+  steps:
+  - intent: go_to_step
+  - action: action_go_to_step
+  - action: utter_prompt_action
+
   # - story: search_venues
   #   steps:
   #   - intent: search_venues

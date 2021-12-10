@@ -11,6 +11,7 @@ intents:
   - display_previous_step
   - display_current_step
   - display_next_step
+  - go_to_step
   - transform
   - get_url
   - how_query
@@ -32,9 +33,11 @@ entities:
 slots:
   step_number:
    type: float
-   initial_value: 0
+   initial_value: 1
    mappings:
    - type: custom
+#     entity: step_number
+#     intent: go_to_step
 
   transformation:
    type: text
@@ -138,6 +141,7 @@ actions:
   - action_display_next_step
   - action_answer_how_to_query
   - action_answer_what_is_query
+  - action_go_to_step
 
 session_config:
   session_expiration_time: 60  # value in minutes

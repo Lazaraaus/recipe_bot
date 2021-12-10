@@ -85,14 +85,26 @@ nlu:
   # Need to find an example of this, I think I can just use numbers and the words
   - intent: go_to_step
     examples: |
-      - go to step 1
-      - go to step one
-      - go to step 2
-      - go to step two
-      - go to step 3
-      - go to step three
-      - go to step 4
-      - go to step 5
+      - go to step [1](step_number)
+      - go to step [one](step_number)
+      - go to step [2](step_number)
+      - go to step [two](step_number)
+      - go to step [3](step_number)
+      - go to step [three](step_number)
+      - go to step [4](step_number)
+      - go to step [four](step_number)
+      - go to step [5](step_number)
+      - go to step [five](step_number)
+      - go to step [6](step_number)
+      - go to step [six](step_number)
+      - go to step [7](step_number)
+      - go to step [seven](step_number)
+      - go to step [8](step_number)
+      - go to step [eight](step_number)
+      - go to step [9](step_number)
+      - go to step [nine](step_number)
+      - go to step [10](step_number)
+      - go to step [ten](step_number)
 
   # Need to find example of general query so we can respond to how to questions; Ex., How do I preheat the oven
   - intent: what_query

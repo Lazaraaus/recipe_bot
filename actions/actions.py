@@ -82,7 +82,7 @@ class ActionGetRecipe(Action):
             print(instructions)
             dispatcher.utter_message(text=msg)
             # Return SlotSet Events
-            return [SlotSet("instructions", instructions), SlotSet("ingredients", ingredients), SlotSet("title", title), SlotSet("ingr_dict", ingr_dict), SlotSet("instr_dict", instr_dict), SlotSet("step_number", 1)] 
+            return [SlotSet("instructions", instructions), SlotSet("ingredients", ingredients), SlotSet("title", title), SlotSet("ingr_dict", ingr_dict), SlotSet("instr_dict", instr_dict)] 
         except:
             # Utter Failure Message
             msg = "Url failed, please check and try again"
@@ -140,6 +140,10 @@ class ActionDisplayCurrentStep(Action):
         
         step = tracker.get_slot("step_number")
         instructions = tracker.get_slot("instructions")
+        ingr_dict = tracker.get_slot("ingr_dict")
+        instr_dict = tracker.get_slot("instr_dict")
+        print(ingr_dict)
+        print(instr_dict)
         print(step)
         print(instructions)
         msg = "Step {}: {}\n".format(step, instructions[step - 1])
@@ -163,16 +167,15 @@ class ActionDisplayNextStep(Action):
         try:
             msg = "Step {}: {}\n".format(step, instructions[step])
             dispatcher.utter_message(text=msg)
-            if step < len(instructions):
-                SlotSet("step_number", step + 1)
-            return []
+            if step < len(instructions): 
+                return [SlotSet("step_number", step + 1)]
         except:
             pass
 
 class ActionDisplayPreviousStep(Action):
 
     def name(self) -> Text:
-        return "action_display_current_step"
+        return "action_display_previous_step"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -185,11 +188,27 @@ class ActionDisplayPreviousStep(Action):
             msg = "Step {}: {}\n".format(step, instructions[step - 2])
             dispatcher.utter_message(text=msg)
             if step > 1:
-                SlotSet("step_number", step - 1)
-            return []
+                return [SlotSet("step_number", step - 1)]
         except:
             pass
+
+class ActionGoToStep(Action):
+    def name(self) -> Text:
+        return "action_go_to_step"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
         
+        step = tracker.get_slot("step_number")
+        instructions = tracker.get_slot("instructions")
+        print(step)
+        try:
+            msg = "Step {}: {}\n".format(step, instructions[step - 1])
+            dispatcher.utter_message(text=msg)
+            if step > 1:    
+                return [SlotSet("step_number", step - 1)]
+        except:
+            pass
 # Etc, Etc 
 
 """
