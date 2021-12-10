@@ -21,7 +21,7 @@ from rasa_sdk.events import SlotSet
 # utter messages w/ dispatcher.utter_message()
 # Get slot values w/ tracker.current_slot_values()
 # Set a slot w/ SlotSet()
-# Get entity values from messages using tracker.lastest_message['entities]
+# Get entity values from messages using tracker.lastest_message['entities']
 # Realized we can store the current step as an int in a slot, starts at 0
 # We can change the slot every time we advance or recede. 
 # I think I need to split the query action into two distinct queries: What something is and how to perform some action
@@ -136,7 +136,8 @@ class ActionDisplayCurrentStep(Action):
         
         step = tracker.get_slot("step_number")
         instructions = tracker.get_slot("instructions")
-
+        print(step)
+        print(instructions)
         msg = "Step {}: {}\n".format(step, instructions[step - 1])
         dispatcher.utter_message(text=msg)
         return []

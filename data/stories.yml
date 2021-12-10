@@ -12,7 +12,8 @@ stories:
   
 - story: Show all steps
   steps:
-  - action: utter_ask_display_all_Steps
+  - intent: display_all_steps
+  - action: utter_ask_display_all_steps
   - action: action_display_all_steps
   - action: utter_prompt_action
 
@@ -29,6 +30,7 @@ stories:
   - action: utter_prompt_action
 
 - story: Show Previous Step
+  steps: 
   - intent: display_previous_step
   - action: action_display_previous_step
   - action: utter_prompt_action
