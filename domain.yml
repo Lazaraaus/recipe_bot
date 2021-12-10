@@ -28,6 +28,7 @@ entities:
   - cooking_action
   - ingredient_amount
   - cooking_action_time
+  - step_count
 
 
 slots:
@@ -36,8 +37,14 @@ slots:
    initial_value: 1
    mappings:
    - type: custom
-#     entity: step_number
-#     intent: go_to_step
+  
+  step_count:
+   type: float
+   initial_value: 1
+   mappings:
+   - type: from_entity
+     entity: step_count
+     intent: go_to_step
 
   transformation:
    type: text

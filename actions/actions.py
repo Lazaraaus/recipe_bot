@@ -285,11 +285,14 @@ class ActionGoToStep(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:       
-        step = tracker.get_slot("step_number")
+        step = int(tracker.get_slot("step_count"))
         instructions = tracker.get_slot("instructions")
+        print(instructions[step - 1])
+        #msg_text = f"Step {step}" + instructions[step - 1] + " "
+        #print(msg_text)
         print(step)
         try:
-            msg = "Step {}: {}\n".format(step, instructions[step - 1])
+            msg = f"Step {step}: {instructions[step - 1]}" 
             dispatcher.utter_message(text=msg)
             if step > 1:    
                 return [SlotSet("step_number", step - 1)]
