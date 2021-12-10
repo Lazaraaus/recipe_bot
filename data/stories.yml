@@ -5,6 +5,7 @@ stories:
 - story: greet and get recipe
   steps:
     - intent: greet
+    - action: utter_greet
     - action: utter_get_url 
     - intent: get_url 
     - action: action_get_recipe
@@ -13,12 +14,40 @@ stories:
   steps:
   - action: utter_ask_display_all_Steps
   - action: action_display_all_steps
+  - action: utter_prompt_action
 
 - story: Show current step
   steps:
   - intent: display_current_step
   - action: action_display_current_step 
+  - action: utter_prompt_action
 
+- story: Show Next Step
+  steps:
+  - intent: display_next_step
+  - action: action_display_next_step
+  - action: utter_prompt_action
+
+- story: Show Previous Step
+  - intent: display_previous_step
+  - action: action_display_previous_step
+  - action: utter_prompt_action
+
+- story: Show all ingredients
+  steps:
+  - intent: display_ingredients
+  - action: action_display_ingredients
+  - action: utter_prompt_action
+
+- story: Answer How To
+  steps:
+  - intent: how_query
+  - action: action_answer_how_to_query
+
+- story: Answer What Is
+  steps:
+  - intent: what_query
+  - action: action_answer_what_is_query
 
   # - story: search_venues
   #   steps:

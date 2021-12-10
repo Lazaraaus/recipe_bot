@@ -53,10 +53,11 @@ class ActionGetRecipe(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
 
         # Extract url from slots 
-        website_url = str(tracker.get_slot('website_url'))
+        website_url = str(tracker.get_slot('recipe_url'))
+        print(website_url)
         
         # Utter Getting Recipe Message
-        msg = "Attempting to retrieve and parse recipe\n"
+        msg = "Attempting to retrieve and parse the following recipe " + website_url + "\n"
         dispatcher.utter_message(text=msg)
         # Scrape Url For Recipe
         try:

@@ -20,7 +20,7 @@ intents:
 
 entities:
   - step_number
-  - website_url
+  - recipe_url
   - transformation
   - how_query
   - what_query
@@ -51,10 +51,12 @@ slots:
    mappings:
    - type: custom
 
-  website_url:
+  recipe_url:
    type: text
    mappings:
-   - type: custom
+   - type: from_entity
+     entity: recipe_url
+     intent: get_url
 
   title:
    type: text
@@ -101,6 +103,8 @@ slots:
   #   - type: custom
 
 responses:
+  utter_prompt_action:
+    - text: "What would you like to do next"
   utter_ask_display_all_steps:
     - text: "Would you like to see all steps?"
   utter_ask_ready_next_step:
@@ -130,7 +134,8 @@ actions:
   - action_display_previous_step
   - action_display_current_step
   - action_display_next_step
-  - action_answer_query
+  - action_answer_how_to_query
+  - action_answer_what_is_query
 
 session_config:
   session_expiration_time: 60  # value in minutes

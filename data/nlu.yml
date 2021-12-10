@@ -85,7 +85,14 @@ nlu:
   # Need to find an example of this, I think I can just use numbers and the words
   - intent: go_to_step
     examples: |
-      - example 1
+      - go to step 1
+      - go to step one
+      - go to step 2
+      - go to step two
+      - go to step 3
+      - go to step three
+      - go to step 4
+      - go to step 5
 
   # Need to find example of general query so we can respond to how to questions; Ex., How do I preheat the oven
   - intent: what_query
@@ -121,18 +128,20 @@ nlu:
       - make non-vegetarian
 
 # regex for website extraction
-  - regex: website_url
+  - regex: recipe_url
     examples: |
-      - "(?:http://|https://)?(?:www\.)?(?:allrecipes\.com/recipe/)\d{5, 6}(?:/\w+(?:-\w+)*|/)?/?"gmi
+      - (?:http://|https://)?(?:www\.)?(?:allrecipes\.com/recipe/)\d{5, 6}(?:/\w+(?:-\w+)*|/)?/?"gmi
+#(?:http://|https://)?(?:www\.)?(?:allrecipes\.com/recipe/)\d{5, 6}(?:/\w+(?:-\w+)*|/)?/?"gmi
 
 # If the regex doesn't work, try the r prefix, as shown below:
 # r"(?:http://|https://)?(?:www\.)?(?:allrecipes\.com/recipe/)\d{5, 6}(?:/\w+(?:-\w+)*|/)?/?"gmi
   
   - intent: get_url
     examples: |
-      - [https://www.allrecipes.com/gallery/prime-rib-christmas-dinner-menu/](webiste_url)
-      - [https://www.allrecipes.com/recipe/15821/aunt-teens-creamy-chocolate-fudge/](website_url)
-      - [https://www.allrecipes.com/recipe/127167/spinach-pomegranate-salad/](website_url)
+      - [https://www.allrecipes.com/gallery/prime-rib-christmas-dinner-menu](recipe_url)
+      - [https://www.allrecipes.com/recipe/15821/aunt-teens-creamy-chocolate-fudge](recipe_url)
+      - [https://www.allrecipes.com/recipe/127167/spinach-pomegranate-salad](recipe_url)
+      - [https://www.allrecipes.com/recipe/257359/pomegranate-chicken](recipe_url)
 
   - intent: how_to_get_started
     examples: |
