@@ -1,23 +1,23 @@
 version: "3.0"
-stories:
 
-  # Story for getting and getting recipe
-  - story: greet and get recipe
-    steps:
+stories:
+# Story for getting and getting recipe
+- story: greet and get recipe
+  steps:
     - intent: greet
     - action: utter_get_url 
     - intent: get_url 
     - action: action_get_recipe
   
-  - story: Show all steps
-    steps:
-    - action: utter_ask_display_all_Steps:
-    - action: action_display_all_steps
+- story: Show all steps
+  steps:
+  - action: utter_ask_display_all_Steps
+  - action: action_display_all_steps
 
-  - story: Show current step
-    steps:
-    - intent: display_current_step
-    - action: display_current_step 
+- story: Show current step
+  steps:
+  - intent: display_current_step
+  - action: display_current_step 
 
 
   # - story: search_venues

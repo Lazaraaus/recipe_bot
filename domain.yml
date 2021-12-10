@@ -31,37 +31,57 @@ entities:
 
 slots:
   step_number:
-  type: int
-  initial_value: 0
+   type: float
+   initial_value: 0
+   mappings:
+   - type: custom
 
   transformation:
-  type: text
+   type: text
+   mappings:
+   - type: custom
 
   what_query:
-  type: list
+   type: list
+   mappings:
+   - type: custom
 
   how_query:
-  type: list
+   type: list
+   mappings:
+   - type: custom
 
   website_url:
-  type: text
+   type: text
+   mappings:
+   - type: custom
 
   title:
-  type: text
+   type: text
+   mappings:
+   - type: custom
 
   ingredients:
-  type: text
+   type: text
+   mappings:
+   - type: custom
 
   instructions:
-  type: text
+   mappings:
+   - type: custom
+   type: text
 
   ingr_dict:
-  type: unfeaturized
-  initiaL-value: {}
+   type: any
+   mappings:
+   - type: custom
+   initial_value: {}
 
   instr_dict:
-  type: unfeaturized
-  initial_value: {}
+   mappings:
+   - type: custom
+   type: any
+   initial_value: {}
  
 
   # concerts:

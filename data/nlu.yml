@@ -72,9 +72,7 @@ nlu:
       - what next
       - show me what comes next
       - display the next step
-<<<<<<< HEAD
       - what should i do next
-=======
       - what should I do next
   
   - intent: display_params
@@ -83,7 +81,6 @@ nlu:
       - what temperature
       - how long do i
       - when is it done
->>>>>>> 4bcc2dde80f31702d5d7c47ce761a222eb98090e
 
   # Need to find an example of this, I think I can just use numbers and the words
   - intent: go_to_step
@@ -91,9 +88,8 @@ nlu:
       - example 1
 
   # Need to find example of general query so we can respond to how to questions; Ex., How do I preheat the oven
-<<<<<<< HEAD
-- intent: what_query
-   examples: |
+  - intent: what_query
+    examples: |
       - what is that
       - what is this
       - i do not know what that is
@@ -103,12 +99,9 @@ nlu:
       - what are linguini noodles
       - what is an egg timer
 
-- intent: how_query
-=======
+  - intent: how_query
   # Aaron - notes how much do we intend to cover by query? (Deliverables 3-4-5-7)?
-- intent: query 
->>>>>>> 4bcc2dde80f31702d5d7c47ce761a222eb98090e
-   examples: |
+    examples: |
       - how do i do that
       - i do not know how to do that
       - how do i preheat the oven
@@ -116,8 +109,8 @@ nlu:
       - how to chop
       - how to preheat an oven
 
-- intent: transform
-   examples: |
+  - intent: transform
+    examples: |
       - transform to italian
       - make italian
       - transform to healthy
@@ -128,30 +121,30 @@ nlu:
       - make non-vegetarian
 
 # regex for website extraction
-- regex: website_url
-  examples: |
+  - regex: website_url
+    examples: |
       - "(?:http://|https://)?(?:www\.)?(?:allrecipes\.com/recipe/)\d{5, 6}(?:/\w+(?:-\w+)*|/)?/?"gmi
 
 # If the regex doesn't work, try the r prefix, as shown below:
 # r"(?:http://|https://)?(?:www\.)?(?:allrecipes\.com/recipe/)\d{5, 6}(?:/\w+(?:-\w+)*|/)?/?"gmi
   
-- intent: get_url
-  examples: |
+  - intent: get_url
+    examples: |
       - [https://www.allrecipes.com/gallery/prime-rib-christmas-dinner-menu/](webiste_url)
       - [https://www.allrecipes.com/recipe/15821/aunt-teens-creamy-chocolate-fudge/](website_url)
       - [https://www.allrecipes.com/recipe/127167/spinach-pomegranate-salad/](website_url)
 
-- intent: how_to_get_started
-  examples: |
-    - how do I get started
-    - what can I do
-    - start
+  - intent: how_to_get_started
+    examples: |
+     - how do I get started
+     - what can I do
+     - start
 
-- intent: affirm
-  examples: |
-    - yes
-    - yeah
-    - yep
+  - intent: affirm
+    examples: |
+     - yes
+     - yeah
+     - yep
 
   - intent: deny
     examples: |

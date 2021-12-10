@@ -1,0 +1,6 @@
+[
+  {
+    "name": "website_url",
+    "pattern": "\"(?:http://|https://)?(?:www\\.)?(?:allrecipes\\.com/recipe/)\\d{5, 6}(?:/\\w+(?:-\\w+)*|/)?/?\"gmi"
+  }
+]
