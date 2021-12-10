@@ -90,7 +90,7 @@ class ActionGetRecipe(Action):
 class ActionDisplayAllSteps(Action):
 
     def name(self) -> Text:
-        return "display_all_steps"
+        return "action_display_all_steps"
     
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -110,7 +110,7 @@ class ActionDisplayAllSteps(Action):
 class ActionDisplayIngredients(Action):
 
     def name(self) -> Text:
-        return "display_ingredients"
+        return "action_display_ingredients"
     
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -119,7 +119,7 @@ class ActionDisplayIngredients(Action):
         ingredients = tracker.get_slot("ingredients")
 
         msg = ""
-        for ingr in ingredeints:
+        for ingr in ingredients:
             msg += "- {}\n".format(ingr)
         dispatcher.utter_message(text=msg)
         return []
@@ -127,7 +127,7 @@ class ActionDisplayIngredients(Action):
 class ActionDisplayCurrentStep(Action):
 
     def name(self) -> Text:
-        return "display_current_step"
+        return "action_display_current_step"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -136,7 +136,7 @@ class ActionDisplayCurrentStep(Action):
         step = tracker.get_slot("step_number")
         instructions = tracker.get_slot("instructions")
 
-        msg = "Step {}: {}\n".format(step, instr[step - 1])
+        msg = "Step {}: {}\n".format(step, instructions[step - 1])
         dispatcher.utter_message(text=msg)
         return []
 
@@ -145,7 +145,7 @@ class ActionDisplayCurrentStep(Action):
 class ActionDisplayNextStep(Action):
 
     def name(self) -> Text:
-        return "display_next_step"
+        return "action_display_next_step"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -155,7 +155,7 @@ class ActionDisplayNextStep(Action):
         instructions = tracker.get_slot("instructions")
 
         try:
-            msg = "Step {}: {}\n".format(step, instr[step])
+            msg = "Step {}: {}\n".format(step, instructions[step])
             dispatcher.utter_message(text=msg)
             if step < len(instructions):
                 SlotSet("step_number", step + 1)
@@ -166,7 +166,7 @@ class ActionDisplayNextStep(Action):
 class ActionDisplayPreviousStep(Action):
 
     def name(self) -> Text:
-        return "display_current_step"
+        return "action_display_current_step"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -176,7 +176,7 @@ class ActionDisplayPreviousStep(Action):
         instructions = tracker.get_slot("instructions")
 
         try:
-            msg = "Step {}: {}\n".format(step, instr[step - 2])
+            msg = "Step {}: {}\n".format(step, instructions[step - 2])
             dispatcher.utter_message(text=msg)
             if step > 1:
                 SlotSet("step_number", step - 1)

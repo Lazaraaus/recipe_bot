@@ -18,3 +18,11 @@ To run the project in the project directory, run the `python3 parser.py [transfo
 
 - `output`: Lists the path to an output file to which the human-readable recipe will be written. If you would like a look at the internal representation of the parsed recipe (before transformations) instead, you may use `cmd` as the value for this parameter and it will print that internal representation to the command line.
 - `url`: The URL of the input recipe from www.allrecipes.com.
+
+
+
+
+## How to run Rasa Conversation Engine
+- In a terminal window run `rasa run actions` inside your virtual env
+- In a separate window run `rasa train` inside your virtual env. Then run `rasa shell` to converse w/ the bot. 
+ 

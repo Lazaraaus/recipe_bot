@@ -17,7 +17,7 @@ stories:
 - story: Show current step
   steps:
   - intent: display_current_step
-  - action: display_current_step 
+  - action: action_display_current_step 
 
 
   # - story: search_venues
