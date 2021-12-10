@@ -28,6 +28,16 @@ from rasa_sdk.events import SlotSet
 # Honestly if we had time I'd suggest writing a class to manage a recipe and importing it here. Let that keep track of
 # the state. 
 
+WHAT_PRE_PHRASES = ["what's the meaning to ", "what's the meaning of ", "what's the meaning ", "what's it mean to ", "what's ", "whats the meaning of ", "whats the meaning to ", "whats the meaning ", "whats it mean to ", "whats it mean ", "whats ", "what does it mean to ", "what does it mean ", "what it means to ", "what it means ", "what does a ", "what does ", "what do ", "what is ", "what " "definition of ", "definition ", "define ", "i do not know what ", "i don't know what ", "i dont know what ", "idk what ", "meaning "]
+WHAT_POST_PHRASES = [" is", " are", " definition", " means", " does", " do"]
+WHAT_SUB_PHRASES = ["that", "this", "it"]
+
+HOW_PRE_PHRASES = ["i do not know how to ", "i do not know how ", "i don't know how to ", "i don't know how ", "i dont know how to ", "i dont know how ", "idk how to ", "idk how ", "how do i ", "how to ", "how "]
+HOW_POST_PHRASES = [" works"," work"]
+HOW_SUB_PHRASES = ["does that", "does this", "does it", "do that", "do this", "do it", "that", "this", "it"]
+
+QUERY_URL = "google.com/search?q="
+
 class ActionHelloWorld(Action):
 
     def name(self) -> Text:
@@ -192,7 +202,6 @@ class ActionDisplayPreviousStep(Action):
         except:
             pass
 
-
 class ActionAnswerHowToQuery(Action):
 
     def name(self) -> Text:
@@ -204,31 +213,24 @@ class ActionAnswerHowToQuery(Action):
         print("how")
         
         question = " ".join(tracker.latest_message["text"].lower().split())
-        pre_phrases = ["how do i ", "i do not know how to ", "i don't know how to ", "i dont know how to ", "idk how to ", "how to ",
-        "i do not know how ", "i don't know how ", "i dont know how ", "idk how ", "how "]
-        sub_phrases = ["do that", "do this", "do it", "that", "this", "it"]
-        post_phrases = [" work", " works"]
         is_parsed = False
 
-        for p in pre_phrases:
+        for p in HOW_PRE_PHRASES:
             if question[:len(p)] == p:
                 question = question[len(p):]
                 is_parsed = True
                 break
-        for p in post_phrases:
+        for p in HOW_POST_PHRASES:
             if question[-len(p):] == p:
                 question = question[:-len(p)]
                 is_parsed = True
                 break
-        for p in sub_phrases:
+        for p in HOW_SUB_PHRASES:
             if p in question:
                 break
         
         q = "+".join(question.split())
-        url = "google.com/search?q="
-        if is_parsed:
-            url += "how+to+"
-        msg = "Here's a link that might help:\n\t{}{}\n".format(url, q)
+        msg = "Here's a link that might help:\n\t{}{}\n".format(QUERY_URL + ("how+to+" if is_parsed else ""), q)
         print(tracker.get_slot("instr_dict"))
         print(tracker.get_slot("ingr_dict"))
 
@@ -246,33 +248,24 @@ class ActionAnswerWhatIsQuery(Action):
         print("what")
         
         question = " ".join(tracker.latest_message["text"].lower().split())
-        pre_phrases = ["what is ", "what's ", "whats ", "define ", "definition ", "definition of ", "what do ", "what does ", "what does a ", "what does it mean ",
-        "what does it mean to ", "whats it mean to ", "whats it mean ", "what's it mean to ", "whats it mean to ", "what's the meaning ", "whats the meaning ",
-        "what's the meaning of ", "whats the meaning of ", "what's the meaning to ", "whats the meaning to ", "meaning ", "what it means ", "what it means to "
-        "i do not know what ", "i don't know what ", "i dont know what ", "idk what "]
-        post_phrases = [" is", " are", " definition", " means", " do", " does"]
-        sub_phrases = ["that", "this", "it"]
         is_parsed = False
 
-        for p in pre_phrases:
+        for p in WHAT_PRE_PHRASES:
             if question[:len(p)] == p:
                 question = question[len(p):]
                 is_parsed = True
                 break
-        for p in post_phrases:
+        for p in WHAT_POST_PHRASES:
             if question[-len(p):] == p:
                 question = question[:-len(p)]
                 is_parsed = True
                 break
-        for p in sub_phrases:
+        for p in WHAT_SUB_PHRASES:
             if p in question:
                 break
         
         q = "+".join(question.split())
-        url = "google.com/search?q="
-        if is_parsed:
-            url += "what+is+"
-        msg = "Here's a link that might help:\n\t{}{}\n".format(url, q)
+        msg = "Here's a link that might help:\n\t{}{}\n".format(QUERY_URL + ("what+is+" if is_parsed else ""), q)
         print(tracker.get_slot("instr_dict"))
         print(tracker.get_slot("ingr_dict"))
 
