@@ -94,7 +94,7 @@ nlu:
       - go to step 4
       - go to step 5
 
-  # Need to find example of general query so we can respond to how to questions; Ex., How do I preheat the oven
+  # Need to find example of general query o we can respond to how to questions; Ex., How do I preheat the oven
   - intent: what_query
     examples: |
       - what is that
@@ -105,6 +105,32 @@ nlu:
       - what is cheese
       - what are linguini noodles
       - what is an egg timer
+      - what's a dutch oven
+      - define mozzerella
+      - definition pizza oven
+      - definition of pastry
+      - what do ovens do
+      - what does a toaster do
+      - what does broiling mean
+      - what does it mean endive
+      - what does it mean to simmer
+      - whats it mean to carve a turkey
+      - what it mean salami
+      - what's it mean asparagus
+      - whats it mean to brown meat
+      - what's the meaning high heat
+      - whats the meaning cucumber
+      - what's the meaning of julianne
+      - whats the meaning of that
+      - what's the meaning to roast veggies
+      - whats the meaning to crimp pie crust
+      - meaning peppercorn
+      - what it means oregano
+      - what it means to season
+      - i do not know what an oven is
+      - i don't know what chopping is
+      - i dont know what pine nuts are
+      - idk what linguini means
 
   - intent: how_query
   # Aaron - notes how much do we intend to cover by query? (Deliverables 3-4-5-7)?
@@ -115,6 +141,16 @@ nlu:
       - how to mince
       - how to chop
       - how to preheat an oven
+      - how do i bake a cake
+      - i don't know how to baste an egg
+      - i dont know how dutch ovens work
+      - i dont know how to do this
+      - idk how to do that
+      - how to broil pork
+      - i don't know how microwave
+      - i dont know how that works
+      - idk how using a toaster
+      - how blender
 
   - intent: transform
     examples: |
