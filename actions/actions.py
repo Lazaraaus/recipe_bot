@@ -192,13 +192,99 @@ class ActionDisplayPreviousStep(Action):
         except:
             pass
 
+
+class ActionAnswerHowToQuery(Action):
+
+    def name(self) -> Text:
+        return "action_answer_how_to_query"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        print("how")
+        
+        question = " ".join(tracker.latest_message["text"].lower().split())
+        pre_phrases = ["how do i ", "i do not know how to ", "i don't know how to ", "i dont know how to ", "idk how to ", "how to ",
+        "i do not know how ", "i don't know how ", "i dont know how ", "idk how ", "how "]
+        sub_phrases = ["do that", "do this", "do it", "that", "this", "it"]
+        post_phrases = [" work", " works"]
+        is_parsed = False
+
+        for p in pre_phrases:
+            if question[:len(p)] == p:
+                question = question[len(p):]
+                is_parsed = True
+                break
+        for p in post_phrases:
+            if question[-len(p):] == p:
+                question = question[:-len(p)]
+                is_parsed = True
+                break
+        for p in sub_phrases:
+            if p in question:
+                break
+        
+        q = "+".join(question.split())
+        url = "google.com/search?q="
+        if is_parsed:
+            url += "how+to+"
+        msg = "Here's a link that might help:\n\t{}{}\n".format(url, q)
+        print(tracker.get_slot("instr_dict"))
+        print(tracker.get_slot("ingr_dict"))
+
+        dispatcher.utter_message(text=msg)
+        return []
+        
+class ActionAnswerWhatIsQuery(Action):
+
+    def name(self) -> Text:
+        return "action_answer_what_is_query"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        print("what")
+        
+        question = " ".join(tracker.latest_message["text"].lower().split())
+        pre_phrases = ["what is ", "what's ", "whats ", "define ", "definition ", "definition of ", "what do ", "what does ", "what does a ", "what does it mean ",
+        "what does it mean to ", "whats it mean to ", "whats it mean ", "what's it mean to ", "whats it mean to ", "what's the meaning ", "whats the meaning ",
+        "what's the meaning of ", "whats the meaning of ", "what's the meaning to ", "whats the meaning to ", "meaning ", "what it means ", "what it means to "
+        "i do not know what ", "i don't know what ", "i dont know what ", "idk what "]
+        post_phrases = [" is", " are", " definition", " means", " do", " does"]
+        sub_phrases = ["that", "this", "it"]
+        is_parsed = False
+
+        for p in pre_phrases:
+            if question[:len(p)] == p:
+                question = question[len(p):]
+                is_parsed = True
+                break
+        for p in post_phrases:
+            if question[-len(p):] == p:
+                question = question[:-len(p)]
+                is_parsed = True
+                break
+        for p in sub_phrases:
+            if p in question:
+                break
+        
+        q = "+".join(question.split())
+        url = "google.com/search?q="
+        if is_parsed:
+            url += "what+is+"
+        msg = "Here's a link that might help:\n\t{}{}\n".format(url, q)
+        print(tracker.get_slot("instr_dict"))
+        print(tracker.get_slot("ingr_dict"))
+
+        dispatcher.utter_message(text=msg)
+        return []
+
 class ActionGoToStep(Action):
     def name(self) -> Text:
         return "action_go_to_step"
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
-        
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:       
         step = tracker.get_slot("step_number")
         instructions = tracker.get_slot("instructions")
         print(step)
