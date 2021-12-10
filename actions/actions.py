@@ -51,7 +51,8 @@ class ActionGetRecipe(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
-
+        # Create List for Events
+        #events = []
         # Extract url from slots 
         website_url = str(tracker.get_slot('recipe_url'))
         print(website_url)
@@ -64,22 +65,24 @@ class ActionGetRecipe(Action):
             # Get Recipe Info
             title, ingredients, instructions = scrape(website_url)
             # Set slots
-            SlotSet("title", title)
-            SlotSet("ingredients", ingredients)
-            SlotSet("instructions", instructions)
+            # events.append(SlotSet("title", title))
+            # events.append(SlotSet("ingredients", ingredients))
+            # events.append(SlotSet("instructions", instructions))
             # Parse Recipe
             ingr_dict = parseIngredients(ingredients)
             ingrs_list = get_ingredients_from_ingrs_dict(ingr_dict)
             instr_dict = parseInstructions(instructions, ingrs_list)
             # Set Slots
-            SlotSet("ingr_dict", ingr_dict)
-            SlotSet("instr_dict", instr_dict)
-            SlotSet("step_number", 1)
+            # events.append(SlotSet("ingr_dict", ingr_dict))
+            # events.append(SlotSet("instr_dict", instr_dict))
+            # events.append(SlotSet("step_number", 1))
 
             # Utter Success Message
             msg = title + " retrieved and parsed.\n" + "What would you like to do next?"
+            print(instructions)
             dispatcher.utter_message(text=msg)
-            return [] 
+            # Return SlotSet Events
+            return [SlotSet("instructions", instructions), SlotSet("ingredients", ingredients), SlotSet("title", title), SlotSet("ingr_dict", ingr_dict), SlotSet("instr_dict", instr_dict), SlotSet("step_number", 1)] 
         except:
             # Utter Failure Message
             msg = "Url failed, please check and try again"
@@ -98,7 +101,7 @@ class ActionDisplayAllSteps(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
         
         instructions = tracker.get_slot("instructions")
-
+        print(instructions)
         # ARE WE DOING TRNASFORMATIONS? IF NOT THIS SEEMS SO TRIVIAL ALMOST
 
         msg = ""
@@ -118,6 +121,7 @@ class ActionDisplayIngredients(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
         
         ingredients = tracker.get_slot("ingredients")
+        print(ingredients)
 
         msg = ""
         for ingr in ingredients:

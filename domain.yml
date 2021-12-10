@@ -64,14 +64,16 @@ slots:
    - type: custom
 
   ingredients:
-   type: text
+   type: any
    mappings:
    - type: custom
+   initial_value: []
 
   instructions:
    mappings:
    - type: custom
-   type: text
+   type: any
+   initial_value: []
 
   ingr_dict:
    type: any
