@@ -193,7 +193,44 @@ nlu:
       - could i swap out [cod](transformation)
 
   - lookup: transformation
-      data/food.txt
+      - data/food.txt
+  
+  - intent: ingredient_question
+    examples: |
+      - how much of the flour do i need
+      - tell me about the eggs again
+      - how many eggs should i use
+      - what quantity of chicken
+      - how many
+      - how much
+      - how much of the sugar do i need for this step
+      - tell me about the butter again for this step
+      - how many vegetables should i use for this step
+      - what quantity of chicken for this step
+      - how many for this step
+      - how much for this step
+      - how much of the chocolate do i need current step
+      - tell me about the arugula again current step
+      - how many potatoes should i use current step
+      - what quantity of taco meat current step
+      - how many current step
+      - how much current step
+  
+  - intent: time_question
+    examples: |
+      - how long should i bake for
+      - what amount of time should i stir
+      - how long
+      - what's the time
+  
+  - intent: temperature_question
+    examples: |
+      - how hot should the oven be
+      - how cold should i chill my ice cream
+      - what is the temperature for this step
+      - temperature
+      - how hot
+      - how cold
 
 # regex for website extraction
   - regex: recipe_url

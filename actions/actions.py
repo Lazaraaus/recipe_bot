@@ -367,12 +367,124 @@ class ActionTransformIngredient(Action):
                 dispatcher.utter_message(text=msg)
                 return [SlotSet("transformation", "")]
 
-# Etc, Etc 
+class ActionAnswerIngredientQuestion(Action):
 
-"""
-    title = tracker.get_slot("title")
-    ingredients = tracker.get_slot("ingredients")
-    instructions = tracker.get_slot("instructions")
-    ingr_dict = tracker.get_slot("ingr_dict")
-    instr_dict = tracker.get_slot("instr_dict")
-"""
+    def name(self):
+        return "action_answer_ingredient_question"
+    
+    @staticmethod
+    def get_ingr(question, ingredients):
+        ingredient = None
+        for token in question:
+            if not ingredient:
+                for ingr in ingredients:
+                    if token in ingr:
+                        ingredient = ingr
+                        break
+        return ingredient
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        print("ingredient")
+        question = tracker.latest_message["text"].lower().split()
+        ingredients = tracker.get_slot("ingredients")
+        ingredient = self.get_ingr(question, ingredients)
+        msg = ""
+        
+        if ingredient:
+            msg = "This recipe calls for {}.\n".format(ingredient)
+        else:
+            step_ingrs = tracker.get_slot("instr_dict")[str(tracker.get_slot("step_number"))]["ingredients"]
+            step_ingrs = [self.get_ingr([step_ingr], ingredients) for step_ingr in step_ingrs]
+            if step_ingrs:
+                msg = "This step calls for:\n"
+                for step_ingr in step_ingrs:
+                    msg += "\t{}\n".format(step_ingr)
+            else:
+                msg = "No ingredients are necessary for this step!"
+        
+        dispatcher.utter_message(text=msg)
+        return []
+
+class ActionAnswerTimeQuestion(Action):
+    
+    def name(self):
+        return "action_answer_time_question"
+    
+    @staticmethod
+    def get_action(question, actions):
+        action = None
+        for token in question:
+            if not action:
+                for a in actions:
+                    if token in a:
+                        action = a
+                        break
+        return action
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        print("time")
+        question = tracker.latest_message["text"].lower().split()
+        instr = tracker.get_slot("instr_dict")[str(tracker.get_slot("step_number"))]
+        instruction = tracker.get_slot("instructions")[int(tracker.get_slot("step_number"))]
+        times = instr["time"]
+        actions = instr["action"]
+        tokens = instr["tokens"]
+        action = self.get_action(question, actions)
+        msg = ""
+
+        print(question)
+        print(action)
+        print(times)
+        print(actions)
+        print(instruction)
+
+        if action and len(times) == len(actions):
+            try:
+                i = actions.index(action)
+                msg = "{} for {}.\n".format(actions[i], times[i])
+            except ValueError:
+                print("one action but time wasn't right")
+                msg = "{}\n".format(instruction)
+        elif times:
+            if len(times) == len(actions):
+                for i in len(times):
+                    msg += "{} for {}.\n".format(actions[i], times[i])
+            else:
+                msg = "{}.\n".format(times[0])
+        elif "until" in instruction:
+            i = instruction.find("until")
+            j = min(instruction.find(".", i), instruction.find(",", i))
+            msg = "U{}.\n".format(instruction[i + 1:j])
+        else:
+            msg = "There's nothing time-sensitive in this step."
+        
+        dispatcher.utter_message(text=msg)
+        return []
+
+class ActionAnswerTemperatureQuestion(Action):
+
+    def name(self):
+        return "action_answer_temperature_question"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
+        print("temperature")
+        instruction = tracker.get_slot("instructions")[int(tracker.get_slot("step_number"))].split()
+        msg = ""
+        
+        try:
+            i = instruction.index("degrees")
+            if len(instruction) > i and instruction[i + 1] == "F" and i != 0:
+                msg = "{} degrees F.\n".format(instruction[i - 1])
+            else:
+                msg = "There's no temperature related to this step."
+        except ValueError:
+            msg = "There's no temperature related to this step."
+
+        dispatcher.utter_message(text=msg)
+        return []
