@@ -113,3 +113,8 @@ HEALTHY_TO_UNHEALTHY = {'turkey' : 'beef',
                         'coconut oil': 'butter'
                     
 }
+
+# textfile = open("food.txt", "w")
+# for element in ALL_INGREDIENTS:
+#     textfile.write(element + "\n")
+# textfile.close()

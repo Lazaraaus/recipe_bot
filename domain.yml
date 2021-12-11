@@ -49,7 +49,9 @@ slots:
   transformation:
    type: text
    mappings:
-   - type: custom
+   - type: from_entity
+     entity: transformation
+     intent: transform
 
   what_query:
    type: list
@@ -115,6 +117,8 @@ slots:
   #   - type: custom
 
 responses:
+  utter_transform_action:
+    - text: "Let me see if we can exchange that for anything else"
   utter_prompt_action:
     - text: "What would you like to do next"
   utter_ask_display_all_steps:
@@ -149,6 +153,7 @@ actions:
   - action_answer_how_to_query
   - action_answer_what_is_query
   - action_go_to_step
+  - action_transform_ingredient
 
 session_config:
   session_expiration_time: 60  # value in minutes

@@ -56,6 +56,12 @@ stories:
   - action: action_go_to_step
   - action: utter_prompt_action
 
+- story: Transform Ingredient
+  steps:
+  - intent: transform
+  - action: utter_transform_action
+  - action: action_transform_ingredient
+
   # - story: search_venues
   #   steps:
   #   - intent: search_venues

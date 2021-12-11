@@ -166,14 +166,30 @@ nlu:
 
   - intent: transform
     examples: |
-      - transform to italian
-      - make italian
-      - transform to healthy
-      - make healthy
-      - transform to vegetarian
-      - make vegetarian
-      - transform to non-vegetarian
-      - make non-vegetarian
+      - what can i substitute for [butter](transformation)
+      - can i substitute [beef](transformation)
+      - what could i substitute for [baking soda](transformation)
+      - anything i could substitute for [bread](transformation)
+      - could i swap out [salmon](transformation)
+      - can i change [yogurt](transformation) to something else
+      - i don't like [lime juice](transformation)
+      - what can i substitute for [onion](transformation)
+      - can i substitute [brown sugar](transformation)
+      - what could i substitute for [black pepper](transformation)
+      - anything i could substitute for [parsley](transformation)
+      - could i swap out [salmon](transformation)
+      - can i change [garlic](transformation) to something else
+      - i don't like [chicken](transformation)
+      - what can i substitute for [butter](transformation)
+      - can i substitute [beef](transformation)
+      - what could i substitute for [baking soda](transformation)
+      - anything i could substitute for [bread](transformation)
+      - could i swap out [salmon](transformation)
+      - can i change [yogurt](transformation) to something else
+      - i don't like [lime juice](transformation)
+
+  - lookup: transformation
+     - data/food.txt
 
 # regex for website extraction
   - regex: recipe_url

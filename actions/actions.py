@@ -10,6 +10,7 @@ from scrape import scrape
 from parse import parseIngredients, parseInstructions
 from parser import get_ingredients_from_ingrs_dict
 from typing import Any, Text, Dict, List
+import json
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
@@ -173,9 +174,12 @@ class ActionDisplayNextStep(Action):
         
         step = tracker.get_slot("step_number")
         instructions = tracker.get_slot("instructions")
-
+        if step > len(instructions) + 1:
+            msg = "This is the last step, no steps beyond!"
+            dispatcher.utter_message(text=msg)
+            return []
         try:
-            msg = "Step {}: {}\n".format(step, instructions[step])
+            msg = "Step {}: {}\n".format(step + 1, instructions[step])
             dispatcher.utter_message(text=msg)
             if step < len(instructions): 
                 return [SlotSet("step_number", step + 1)]
@@ -193,9 +197,12 @@ class ActionDisplayPreviousStep(Action):
         
         step = tracker.get_slot("step_number")
         instructions = tracker.get_slot("instructions")
-
+        if step - 1 < 0:
+            msg = "This is the first step, no steps before!"
+            dispatcher.utter_message(text=msg)
+            return []
         try:
-            msg = "Step {}: {}\n".format(step, instructions[step - 2])
+            msg = "Step {}: {}\n".format(step - 1, instructions[step - 2])
             dispatcher.utter_message(text=msg)
             if step > 1:
                 return [SlotSet("step_number", step - 1)]
@@ -287,10 +294,45 @@ class ActionGoToStep(Action):
         try:
             msg = f"Step {step}: {instructions[step - 1]}" 
             dispatcher.utter_message(text=msg)
-            if step > 1:    
-                return [SlotSet("step_number", step - 1)]
+            return []
         except:
             pass
+
+class ActionTransformIngredient(Action):
+    def name(self) -> Text:
+        return "action_transform_ingredient"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text,Any]]: 
+        # Get transformation entity
+        ingredient = tracker.get_slot("transformation")
+        ingredients = tracker.get_slot("ingredients")
+        print(ingredient)
+        print(ingredients)
+        # Load sub dict 
+        f = open("subs.json")
+        sub_dict = json.load(f)
+        f.close()
+
+        flag = False
+        # Look for ingr in ingredients
+        for ingr_str in ingredients:
+            if ingredient in ingr_str:
+                flag = True
+        if flag == False:
+            msg = "Sorry, but I don't think this recipe calls for that ingredient"
+            dispatcher.utter_message(text=msg)
+            return [SlotSet("transformation", "")]
+        else:            
+            # Check if we have a substitution for the ingredient
+            if ingredient in sub_dict.keys():
+                amount = sub_dict[ingredient]["amount"]
+                substitution = sub_dict[ingredient]["substitution"]
+                msg = "We've found a substitution"
+                dispatcher.utter_message(text=msg)
+                msg = "You can use: \n\t " + substitution + "\nfor \n\t" + amount + "\n of \n\t" + ingredient
+            return []
+
 # Etc, Etc 
 
 """
