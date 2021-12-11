@@ -335,10 +335,9 @@ class ActionTransformIngredient(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text,Any]]: 
         # Get transformation entity
-        ingredient = tracker.get_slot("transformation")
+        ingredient = str(tracker.get_slot("transformation"))
         ingredients = tracker.get_slot("ingredients")
         print(ingredient)
-        print(ingredients)
         # Load sub dict 
         f = open("subs.json")
         sub_dict = json.load(f)
@@ -353,7 +352,7 @@ class ActionTransformIngredient(Action):
             msg = "Sorry, but I don't think this recipe calls for that ingredient"
             dispatcher.utter_message(text=msg)
             return [SlotSet("transformation", "")]
-        else:            
+        elif flag == True:            
             # Check if we have a substitution for the ingredient
             if ingredient in sub_dict.keys():
                 amount = sub_dict[ingredient]["amount"]
@@ -361,7 +360,12 @@ class ActionTransformIngredient(Action):
                 msg = "We've found a substitution"
                 dispatcher.utter_message(text=msg)
                 msg = "You can use: \n\t " + substitution + "\nfor \n\t" + amount + "\n of \n\t" + ingredient
-            return []
+                dispatcher.utter_message(text=msg)
+                return [SlotSet("transformation", "")]
+            else:
+                msg = "Sorry, but we don't have a substitution for " + ingredient
+                dispatcher.utter_message(text=msg)
+                return [SlotSet("transformation", "")]
 
 # Etc, Etc 
 
