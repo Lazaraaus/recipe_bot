@@ -187,9 +187,13 @@ nlu:
       - could i swap out [salmon](transformation)
       - can i change [yogurt](transformation) to something else
       - i don't like [lime juice](transformation)
+      - what can i substitute for capicola
+      - what could i substitute for [goat](transformation)
+      - can i substitute for [bacon](transformation)
+      - could i swap out [cod](transformation)
 
   - lookup: transformation
-     - data/food.txt
+      data/food.txt
 
 # regex for website extraction
   - regex: recipe_url
