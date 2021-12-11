@@ -217,10 +217,13 @@ class ActionAnswerHowToQuery(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
-        print("how")
         
+        msg = ""
         question = " ".join(tracker.latest_message["text"].lower().split())
+        if question[-1] == "?":
+            question = question[:-1]
         is_parsed = False
+        subs = None
 
         for p in HOW_PRE_PHRASES:
             if question[:len(p)] == p:
@@ -233,13 +236,24 @@ class ActionAnswerHowToQuery(Action):
                 is_parsed = True
                 break
         for p in HOW_SUB_PHRASES:
-            if p in question:
+            i = question.find(p)
+            if i > -1:
+                instr = tracker.get_slot("instr_dict")[str(tracker.get_slot("step_number"))]
+                subs = instr["action"]
+                if len(subs) == 1:
+                    question = question[:i] + subs[0] + question[i + len(subs[0]):]
+                    subs = None
                 break
         
-        q = "+".join(question.split())
-        msg = "Here's a link that might help:\n\t{}{}\n".format(QUERY_URL + ("how+to+" if is_parsed else ""), q)
-        print(tracker.get_slot("instr_dict"))
-        print(tracker.get_slot("ingr_dict"))
+        if subs is None:
+            q = "+".join(question.split())
+            msg = "Here's a link that might help:\n\t{}{}\n".format(QUERY_URL + ("how+to+" if is_parsed else ""), q)
+        elif len(subs) == 0:
+            msg = "I didn't undestand your question. Try asking about a specific ingredient/tool/cooking action you're curious about."
+        else:
+            msg = "Could you be more specific? Try asking a question like:\n"
+            for sub in subs:
+                msg += "\tHow to {}?\n".format(sub)
 
         dispatcher.utter_message(text=msg)
         return []
@@ -252,10 +266,13 @@ class ActionAnswerWhatIsQuery(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:
-        print("what")
         
+        msg = ""
         question = " ".join(tracker.latest_message["text"].lower().split())
+        if question[-1] == "?":
+            question = question[:-1]
         is_parsed = False
+        subs = None
 
         for p in WHAT_PRE_PHRASES:
             if question[:len(p)] == p:
@@ -268,13 +285,26 @@ class ActionAnswerWhatIsQuery(Action):
                 is_parsed = True
                 break
         for p in WHAT_SUB_PHRASES:
-            if p in question:
+            i = question.find(p)
+            if i > -1:
+                instr = tracker.get_slot("instr_dict")[str(tracker.get_slot("step_number"))]
+                subs = instr["ingredients"]
+                subs.extend(instr["tools"])
+                subs.extend(instr["action"])
+                if len(subs) == 1:
+                    question = question[:i] + subs[0] + question[i + len(subs[0]):]
+                    subs = None
                 break
         
-        q = "+".join(question.split())
-        msg = "Here's a link that might help:\n\t{}{}\n".format(QUERY_URL + ("what+is+" if is_parsed else ""), q)
-        print(tracker.get_slot("instr_dict"))
-        print(tracker.get_slot("ingr_dict"))
+        if subs is None:
+            q = "+".join(question.split())
+            msg = "Gotcha. I found a link that might help:\n\t{}{}\n".format(QUERY_URL + ("what+is+" if is_parsed else ""), q)
+        elif len(subs) == 0:
+            msg = "I didn't undestand your question. Try asking about a specific ingredient/tool/cooking action you're curious about."
+        else:
+            msg = "Could you be more specific? Try asking a question like:\n"
+            for sub in subs:
+                msg += "\tWhat is {}?\n".format(sub)
 
         dispatcher.utter_message(text=msg)
         return []
