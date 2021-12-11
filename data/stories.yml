@@ -62,6 +62,21 @@ stories:
   - action: utter_transform_action
   - action: action_transform_ingredient
 
+- story: Answer Ingredient Question
+  steps:
+  - intent: ingredient_question
+  - action: action_answer_ingredient_question
+
+- story: Answer Time Question
+  steps:
+  - intent: time_question
+  - action: action_answer_time_question
+
+- story: Answer Temperature Question
+  steps:
+  - intent: temperature_question
+  - action: action_answer_temperature_question
+
   # - story: search_venues
   #   steps:
   #   - intent: search_venues
