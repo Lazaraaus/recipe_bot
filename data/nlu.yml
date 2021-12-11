@@ -199,6 +199,18 @@ nlu:
       - what quantity of chicken
       - how many
       - how much
+      - how much of the sugar do i need for this step
+      - tell me about the butter again for this step
+      - how many vegetables should i use for this step
+      - what quantity of chicken for this step
+      - how many for this step
+      - how much for this step
+      - how much of the chocolate do i need current step
+      - tell me about the arugula again current step
+      - how many potatoes should i use current step
+      - what quantity of taco meat current step
+      - how many current step
+      - how much current step
   
   - intent: time_question
     examples: |
