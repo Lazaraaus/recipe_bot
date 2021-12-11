@@ -39,6 +39,22 @@ HOW_SUB_PHRASES = ["does that", "does this", "does it", "do that", "do this", "d
 
 QUERY_URL = "google.com/search?q="
 
+STEP_MAPPING = {"one" : 1,
+                "two" : 2,
+                "three" : 3,
+                "four" : 4,
+                "five" : 5,
+                "six" : 6,
+                "seven" : 7,
+                "eight" : 8,
+                "nine" : 9,
+                "ten" : 10,
+                "eleven" : 11,
+                "twelve" : 12,
+                "thirteen" : 13,
+                "fourteen" : 14,
+                "fifteen" : 15}
+
 class ActionHelloWorld(Action):
 
     def name(self) -> Text:
@@ -174,10 +190,11 @@ class ActionDisplayNextStep(Action):
         
         step = tracker.get_slot("step_number")
         instructions = tracker.get_slot("instructions")
-        if step > len(instructions) + 1:
+        print(step)
+        if step > len(instructions):
             msg = "This is the last step, no steps beyond!"
             dispatcher.utter_message(text=msg)
-            return []
+            return [SlotSet("step_number", 1)]
         try:
             msg = "Step {}: {}\n".format(step + 1, instructions[step])
             dispatcher.utter_message(text=msg)
@@ -197,7 +214,8 @@ class ActionDisplayPreviousStep(Action):
         
         step = tracker.get_slot("step_number")
         instructions = tracker.get_slot("instructions")
-        if step - 1 < 0:
+        print(step)
+        if step < 0:
             msg = "This is the first step, no steps before!"
             dispatcher.utter_message(text=msg)
             return []
@@ -317,10 +335,11 @@ class ActionGoToStep(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text,Any]]:       
         step = int(tracker.get_slot("step_count"))
         instructions = tracker.get_slot("instructions")
-        print(instructions[step - 1])
-        #msg_text = f"Step {step}" + instructions[step - 1] + " "
-        #print(msg_text)
         print(step)
+        if step > len(instructions) or step < 0:
+            msg = "That step doesn't exist, check steps and try again"
+            dispatcher.utter_message(text=msg)
+            return []
         try:
             msg = f"Step {step}: {instructions[step - 1]}" 
             dispatcher.utter_message(text=msg)
